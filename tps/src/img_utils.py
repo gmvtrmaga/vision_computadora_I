@@ -1,4 +1,12 @@
-from cv2 import COLOR_BGR2RGB, IMREAD_GRAYSCALE, cvtColor, imread, merge, split
+from cv2 import (
+    COLOR_BGR2HSV,
+    COLOR_BGR2RGB,
+    IMREAD_GRAYSCALE,
+    cvtColor,
+    imread,
+    merge,
+    split,
+)
 from numpy import float64, max, maximum
 
 
@@ -10,6 +18,11 @@ def load_as_RGB(path: str):
 def load_as_gray(path: str):
     ret = imread(path, IMREAD_GRAYSCALE)
     return ret
+
+
+def load_as_HSV(path: str):
+    ret = imread(path)
+    return cvtColor(ret, COLOR_BGR2HSV)
 
 
 def tform_crom_coord(img):
