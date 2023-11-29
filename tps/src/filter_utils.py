@@ -1,5 +1,5 @@
 from cv2 import getGaussianKernel
-from numpy import fft, outer, real
+from numpy import abs, fft, max, outer, real, sum
 
 
 def create_gauss_filter(height, width, k_size, sigma):
@@ -13,16 +13,36 @@ def create_gauss_filter(height, width, k_size, sigma):
     gauss_kernel /= gauss_kernel.sum()
 
     # Get fourier transformation of the kernel matching the img size
-    return gauss_kernel, img_to_fourier(gauss_kernel, height, width)
+    return gauss_kernel, img_to_shifted_fourier(gauss_kernel, height, width)
 
 
 def img_to_fourier(img, height, width):
+    # Get fourier transformation of the img
+    return fft.fft2(img, s=(height, width))
+
+
+def img_to_shifted_fourier(img, height, width):
     # Get fourier transformation of the img
     img_fft = fft.fft2(img, s=(height, width))
     return fft.fftshift(img_fft)
 
 
-def fourier_to_img(img):
+def shifted_fourier_to_img(img):
     # Inverse functions
     f_ishift = fft.ifftshift(img)
     return real(fft.ifft2(f_ishift))
+
+
+def sharpness_method_quality_measure(img):
+    height, width = img.shape
+
+    img_fft_no_shift = img_to_fourier(img, height, width)
+    img_fft = img_to_shifted_fourier(img, height, width)
+    abs_img_fft = abs(img_fft)
+    max_freq_val = max(abs_img_fft)
+
+    threshold = max_freq_val / 1000
+
+    pixel_count = sum(img_fft_no_shift > threshold)
+
+    return pixel_count / (height * width)
