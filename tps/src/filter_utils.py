@@ -10,7 +10,7 @@ def create_gauss_filter(height, width, k_size, sigma):
     gauss_kernel = outer(gauss_kernel, gauss_kernel.T)
 
     # Normalization
-    gauss_kernel /= gauss_kernel.sum()
+    # gauss_kernel /= gauss_kernel.sum()
 
     # Get fourier transformation of the kernel matching the img size
     return gauss_kernel, img_to_shifted_fourier(gauss_kernel, height, width)
