@@ -1,26 +1,25 @@
 # Vision por Computadora 1
 
-## Temario:
+## Localizacion de los TPS
 
-1. Introducción a imágenes, sistemas de visión y OpenCV
-1. Operadores de píxel, histogramas, binarización, coord. cromáticas
-1. Filtros convolucionales, no lineales, padding, DoG, Fourier, Canny
-1. Template matching, descriptores, Harris, Transformada de Hough, pirámides
-1. Extracción de características, SIFT, SURF, ORB, FAST, RANSAC, homografia
-1. Segmentación: K-Means, watersheed, mean-shift, Intro a tracking y procesamiento de video.
-1. Procesamiento de video, gstreamer, tracking, optical flow, background substraction
-1. Vision estereo, calibracion de camaras, estimacion de profundidad
+En el directorio `tps` se encuentran varios subdirectorios con los notebooks con las soluciones:
+- tp1/solucion.ipnb
+- tp2/solucion.ipnb
+- tp3/solucion.ipnb
 
-## Material
+En este directorio también se encuentra la carpeta `src` con el código implementado para la realización de los tres tps.
 
-El material de cada cohorte esta distribuido en branches. Una vez clonado el repositorio cambiar a la cohorte corresondiente ejecutando el comando `checkout`:
+# Como ejecutar los TPS:
+NOTA: La versión de Python utilizada es la 3.10.0.
+La notación de los comandos puede variar ligeramente dependiendo del sistema operativo y de la versión de python que se esté utilizando.
 
-```bash
-git checkout 12-cohorte
-```
->Cambiar el nombre del branch por la cohorte que corresponda
+En el directorio principal escribir los siguientes comandos:
+- ``py -m venv .env``
+- ``.\.env\Scripts\activate``
+- ``py -m pip install --upgrade pip``
+- ``pip install -r .\requirements.txt``
 
-## Docentes a cargo
-
-Maxim Dorogov
-* mdorogov@fi.uba.ar
+Una vez instaladas todas las dependencias, realizar los siguientes pasos:
+- Abrir los documentos ``solucion.ipynb`` de los directorios ``tps/tp1``, ``tps/tp2`` y ``tps/tp3``
+- Seleccionar el kerner de ``.env``
+- Ejecutar celdas secuencialmente
