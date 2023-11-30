@@ -1,5 +1,5 @@
 from cv2 import getGaussianKernel
-from numpy import abs, fft, max, outer, real, sum
+from numpy import abs, fft, histogram, max, mean, outer, real, sum
 
 
 def create_gauss_filter(height, width, k_size, sigma):
@@ -46,3 +46,21 @@ def sharpness_method_quality_measure(img):
     pixel_count = sum(img_fft_no_shift > threshold)
 
     return pixel_count / (height * width)
+
+
+def absolute_central_moment_quality_measure(img):
+    # Get img histogram
+    hist, bins = histogram(img.ravel(), 256, [0, 256])
+
+    # Mu
+    meanGray = mean(img)
+
+    # ACMo
+    ret = 0
+    for i in range(len(hist)):
+        ret += abs(bins[i] - meanGray) * hist[i]
+
+    # Make the mean value
+    nPix = sum(hist)
+
+    return ret / nPix
