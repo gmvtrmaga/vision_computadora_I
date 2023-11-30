@@ -51,7 +51,7 @@ def detect_single_pattern(template, img, template_scale=1.0):
     return [(x, y, x2, y2)], [max_corr]
 
 
-def detect_multiple_patterns(template, img, template_scale=1.0):
+def detect_multiple_patterns(template, img, template_scale=1.0, shiftness_factor=0.9):
     # Rescale template if needed
     if template_scale != 1.0:
         template = resize(template, None, fx=template_scale, fy=template_scale)
@@ -64,7 +64,9 @@ def detect_multiple_patterns(template, img, template_scale=1.0):
 
     # Find the location of the best match
     _, max_corr, _, _ = minMaxLoc(res)
-    threshold = max_corr * 0.90
+    # Threshold is computed with the max correlation value and a shiftness factor.
+    # Shiftess of 1 forces to detect all locations with max value -> 0 for shiftness value makes every correlation pass the mask
+    threshold = max_corr * shiftness_factor
 
     # Find the locations where the correlation is above the threshold
     locs = where(res >= threshold)
