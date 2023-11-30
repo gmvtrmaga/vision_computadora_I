@@ -21,5 +21,5 @@ En el directorio principal escribir los siguientes comandos:
 
 Una vez instaladas todas las dependencias, realizar los siguientes pasos:
 - Abrir los documentos ``solucion.ipynb`` de los directorios ``tps/tp1``, ``tps/tp2`` y ``tps/tp3``
-- Seleccionar el kerner de ``.env``
+- Dentro del notebook seleccionar el kernel de ``.env``
 - Ejecutar celdas secuencialmente
