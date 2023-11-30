@@ -4,6 +4,8 @@ from cv2 import (
     COLOR_RGB2GRAY,
     IMREAD_GRAYSCALE,
     TM_CCOEFF_NORMED,
+    Canny,
+    GaussianBlur,
     cvtColor,
     imread,
     merge,
@@ -17,9 +19,20 @@ from cv2 import (
 from numpy import float64, max, maximum, where
 
 
-def detect_single_pattern(template, img, template_scale=1.0):
-    template_gray = cvtColor(template, COLOR_RGB2GRAY)
+def tform_gauss_border_filter(img, kernel_size, th1, th2, contrast_factor=2.0):
     img_gray = cvtColor(img, COLOR_RGB2GRAY)
+    if kernel_size % 2 == 0:
+        kernel_size = kernel_size + 1
+    img_gray = GaussianBlur(img_gray, (kernel_size, kernel_size), 0)
+    img_canny = Canny(img_gray, threshold1=th1, threshold2=th2)
+    return img_canny * contrast_factor
+
+
+def detect_single_pattern(template, img, img_original, template_scale=1.0):
+    # template_gray = cvtColor(template, COLOR_RGB2GRAY)
+    # img_gray = cvtColor(img, COLOR_RGB2GRAY)
+    template_gray = template
+    img_gray = img
 
     # Template dimensions
     h, w = template_gray.shape
@@ -38,7 +51,8 @@ def detect_single_pattern(template, img, template_scale=1.0):
     # Draw bounding box on the original image
     x, y = max_loc
     x2, y2 = x + w, y + h
-    result_image = img.copy()
+
+    result_image = img_original.copy()
     result_image = rectangle(result_image, (x, y), (x2, y2), (0, 255, 0), 2)
 
     return result_image, [(x, y, x2, y2)]
