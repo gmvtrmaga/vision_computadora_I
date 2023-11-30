@@ -1,25 +1,18 @@
 from cv2 import (
-    COLOR_BGR2HSV,
-    COLOR_BGR2RGB,
     COLOR_RGB2GRAY,
     FONT_HERSHEY_SIMPLEX,
-    IMREAD_GRAYSCALE,
     TM_CCOEFF_NORMED,
     Canny,
     GaussianBlur,
     cvtColor,
     getTextSize,
-    imread,
-    merge,
-    putText,
-    split,
-    resize,
     matchTemplate,
-    rectangle,
-    groupRectangles,
     minMaxLoc,
+    putText,
+    rectangle,
+    resize,
 )
-from numpy import clip, float64, max, maximum, uint8, where
+from numpy import clip, uint8, where
 
 
 def tform_gauss_border_filter(img, kernel_size, th1, th2, contrast_factor=2.0):
